@@ -1,5 +1,5 @@
-key = "paste-your-key-here"
-endpoint = "paste-your-endpoint-here"
+key = "key"
+endpoint = "endpoint"
 
 from azure.ai.textanalytics import TextAnalyticsClient
 from azure.core.credentials import AzureKeyCredential
@@ -17,10 +17,11 @@ client = authenticate_client()
 # Example method for detecting sensitive information (PII) from text 
 def pii_recognition_example(client):
     documents = [
-        "The employee's SSN is 859-98-0987.",
-        "The employee's phone number is 555-555-5555."
+        "住所: 東京都港区港南",
+        "私の名前は中野です",
+        "電話番号は090-1234-5678です"
     ]
-    response = client.recognize_pii_entities(documents, language="en")
+    response = client.recognize_pii_entities(documents, language="ja")
     result = [doc for doc in response if not doc.is_error]
     for doc in result:
         print("Redacted Text: {}".format(doc.redacted_text))
